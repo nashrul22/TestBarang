@@ -29,7 +29,7 @@ public class TambahData extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tambah_data);
 
         etKode = (EditText) findViewById(R.id.editNo);
         etNama = (EditText) findViewById(R.id.editNama);
