@@ -92,7 +92,7 @@ public class TambahData extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
 
 
-                        Snackbar.make(findViewById(R.id.btnTambah), "Data berhasil diupdatekan", Snackbar.LENGTH_LONG).setAction("Oke", new View.OnClickListener() {
+                        Snackbar.make(findViewById(R.id.btnOk), "Data berhasil diupdatekan", Snackbar.LENGTH_LONG).setAction("Oke", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 finish();

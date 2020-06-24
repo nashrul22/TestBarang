@@ -23,7 +23,7 @@ public class AdapterLihatBarang extends
     private ArrayList<Barang> daftarBarang;
     private Context context;
 
-    FirebaseDataListener listener;
+    LihatBarang listener;
 
 
 
@@ -78,8 +78,8 @@ public class AdapterLihatBarang extends
                        new View.OnClickListener() {
                            @Override
                            public void onClick(View v) {
-                               dialog.dismiss();
-                               context.startActivity(TambahData.getActIntent((Activity) context).putExtra("data", daftarBarang.get(position)));
+                           dialog.dismiss();
+                           context.startActivity(TambahData.getActIntent((MainActivity) context).putExtra("data", daftarBarang.get(position)));
                            }
                        }
                );
