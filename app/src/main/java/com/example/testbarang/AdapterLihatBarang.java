@@ -1,10 +1,15 @@
 package com.example.testbarang;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +23,14 @@ public class AdapterLihatBarang extends
     private ArrayList<Barang> daftarBarang;
     private Context context;
 
+    FirebaseDataListener listener;
+
+
+
     public AdapterLihatBarang(ArrayList<Barang> barangs, Context ctx){
         daftarBarang = barangs;
         context = ctx;
+        listener = (LihatBarang)ctx;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -55,6 +65,34 @@ public class AdapterLihatBarang extends
        holder.tvTitle.setOnLongClickListener(new View.OnLongClickListener(){
            @Override
            public boolean onLongClick(View view) {
+
+               final Dialog dialog = new Dialog(context);
+               dialog.setContentView(R.layout.dialog_view);
+               dialog.setTitle("Pilih Aksi");
+               dialog.show();
+
+               Button editButton = (Button) dialog.findViewById(R.id.bt_edit_data);
+               Button delButton = (Button) dialog.findViewById(R.id.bt_delete_data);
+
+               editButton.setOnClickListener(
+                       new View.OnClickListener() {
+                           @Override
+                           public void onClick(View v) {
+                               dialog.dismiss();
+                               context.startActivity(TambahData.getActIntent((Activity) context).putExtra("data", daftarBarang.get(position)));
+                           }
+                       }
+               );
+               delButton.setOnClickListener(
+                       new View.OnClickListener() {
+                           @Override
+                           public void onClick(View v) {
+
+                               dialog.dismiss();
+                               listener.onDeleteData(daftarBarang.get(position), position);
+                           }
+                       }
+               );
                return true;
            }
        });
@@ -64,5 +102,9 @@ public class AdapterLihatBarang extends
     @Override
     public int getItemCount() {
         return daftarBarang.size();
+    }
+
+    public interface FirebaseDataListener{
+        void onDeleteData(Barang barang, int position);
     }
 }
